@@ -1,6 +1,9 @@
 services:
-  - type: worker
+  - type: web
     name: hospital-bot
-    runtime: python3
+    runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python hospital_bot_v2.py
+    startCommand: python hospital_bot.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
