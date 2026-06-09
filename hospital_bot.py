@@ -14,8 +14,13 @@ from aiogram.types import (
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
+from dotenv import load_dotenv
 
-BOT_TOKEN = "8784857034:AAGmWxN_eNwzysZHhqZqs04NZgOT_Rl7zC0"
+load_dotenv()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID", "0"))
+
 KASALXONA_NOMI = "Bolalar milliy tibbiyot markazi"
 KASALXONA_MANZIL = "Toshkent, Yashnobod tumani, Parkent ko'chasi 294-uy"
 KASALXONA_TEL = "+998 95 341 00 03"
@@ -26,7 +31,6 @@ INSTAGRAM = "https://instagram.com/ncmc.uz"
 TELEGRAM_KANAL = "https://t.me/ncmcnew"
 FACEBOOK = "https://facebook.com/ncmc.uz"
 WEBSITE = "https://bmtm.uz"
-ADMIN_ID = 1353117203
 USERS_FILE = "users.json"
 SHIKOYATLAR_FILE = "shikoyatlar.json"
 
@@ -310,7 +314,7 @@ async def shikoyat_yuborish(message: types.Message, state: FSMContext):
     try:
         await bot.send_message(ADMIN_ID, shikoyat_matni, parse_mode="HTML")
     except Exception as e:
-        await message.answer(f"⚠️ Xato: {e}")
+        logging.error(f"Admin xabar yuborishda xato: {e}")
     await state.clear()
     await message.answer(
         "✅ <b>Shikoyatingiz qabul qilindi!</b>\n\nTez orada siz bilan bog'lanamiz. Rahmat!",
