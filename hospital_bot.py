@@ -214,8 +214,9 @@ class AdminHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
 def run_server():
-    server = HTTPServer(('localhost', 5000), AdminHandler)
-    print("✅ Admin panel: http://localhost:5000")
+    port = int(os.getenv("PORT", 5000))
+    server = HTTPServer(('0.0.0.0', port), AdminHandler)
+    print(f"✅ Admin panel: http://0.0.0.0:{port}")
     server.serve_forever()
 
 
